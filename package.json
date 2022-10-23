@@ -4,7 +4,9 @@
   "description": "Playwright Web Scraping",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,10 @@
   },
   "homepage": "https://github.com/ksenecki/scrappy#readme",
   "dependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "eslint": "^8.23.0",
     "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "playwright": "^1.27.1",
     "prettier": "^2.7.1"
   }

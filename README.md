@@ -13,4 +13,4 @@ My attempt to scrap pages using Playwright
 
 ## Install Playwright with npm
 
-1. npm install playwright 
+1. npm install playwright

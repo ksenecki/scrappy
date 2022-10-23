@@ -1,0 +1,29 @@
+{
+  "name": "scrappy",
+  "version": "1.0.0",
+  "description": "Playwright Web Scraping",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksenecki/scrappy.git"
+  },
+  "keywords": [
+    "scraping",
+    "playwright",
+    "panda"
+  ],
+  "author": "ksenecki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksenecki/scrappy/issues"
+  },
+  "homepage": "https://github.com/ksenecki/scrappy#readme",
+  "dependencies": {
+    "husky": "^8.0.1",
+    "playwright": "^1.27.1",
+    "prettier": "^2.7.1"
+  }
+}

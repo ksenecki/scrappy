@@ -4,6 +4,8 @@
   "description": "Playwright Web Scraping",
   "main": "index.js",
   "scripts": {
+    "scrappy": "node scraper.ts",
+    "scrappy:5": "for i in `seq 1 5`; do node scraper.ts; done",
     "prettier": "prettier --write .",
     "prepare": "husky install",
     "lint": "eslint ."
@@ -29,6 +31,15 @@
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "playwright": "^1.27.1",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "random-useragent": "^0.5.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown --no-stash"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.3",
+    "@types/random-useragent": "^0.3.1",
+    "typescript": "^4.8.4"
   }
 }

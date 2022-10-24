@@ -2,9 +2,9 @@
   "name": "scrappy",
   "version": "1.0.0",
   "description": "Playwright Web Scraping",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "scrappy": "node scraper.ts",
+    "scrappy": "node index.ts",
     "scrappy:5": "for i in `seq 1 5`; do node scraper.ts; done",
     "prettier": "prettier --write .",
     "prepare": "husky install",

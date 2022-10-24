@@ -1,11 +1,5 @@
-// import playwright from 'playwright';
-// ^ does not work somehow...
-// tried adding "type": "module" to package.json and modify tsconfig.json
-// for whatever reason I have to use require, imports do not work...
-
-const playwright = require('playwright');
-const random_useragent = require('random-useragent');
-// const fs = require('fs');
+import * as random_useragent from 'random-useragent';
+import { chromium } from '@playwright/test';
 
 const BASE_URL = 'http://skleptest.pl/';
 
@@ -15,7 +9,7 @@ export class Scraper {
     try {
       const agent = random_useragent.getRandom();
 
-      const browser = await playwright.chromium.launch({ headless: true });
+      const browser = await chromium.launch({ headless: true });
       const context = await browser.newContext({
         bypassCSP: true,
         userAgent: agent,
@@ -31,8 +25,11 @@ export class Scraper {
         (productArticles) => {
           return productArticles.map((product) => {
             // not sure how to properly fix typings here
+            // @ts-ignore
             const [url] = product.querySelectorAll('a');
+            // @ts-ignore
             const [title] = product.querySelectorAll('a h2');
+            // @ts-ignore
             const [price] = product.querySelectorAll('a .price');
             // Check how to simplify this ^
             const formatText = (element) => element && element.innerText.trim();

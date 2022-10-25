@@ -1,12 +1,28 @@
+import * as fs from 'fs';
 import * as random_useragent from 'random-useragent';
+import { Command, Flags } from '@oclif/core';
 import { chromium } from '@playwright/test';
 
 const BASE_URL = 'http://skleptest.pl/';
 
-export class Scraper {
-  async scrapShop() {
-    // ^ how does it even work?
+export default class Scrap extends Command {
+  static description = 'run scrapers';
+
+  static examples = ['<%= config.bin %> <%= command.id %>'];
+  static flags = {
+    // flag with a value (-n, --name=VALUE)
+    name: Flags.string({ char: 'n', description: 'name to print' }),
+    // flag with no value (-f, --force)
+    force: Flags.boolean({ char: 'f' }),
+  };
+  static args = [{ name: 'file' }];
+
+  async run(): Promise<void> {
+    //const {args, flags} = await this.parse(Scrap)
+
+    this.log(`SCRAPPY WORKS`);
     try {
+      //lepszy error handling
       const agent = random_useragent.getRandom();
 
       const browser = await chromium.launch({ headless: true });
@@ -24,15 +40,12 @@ export class Scraper {
         'ul.products li',
         (productArticles) => {
           return productArticles.map((product) => {
-            // not sure how to properly fix typings here
-            // @ts-ignore
             const [url] = product.querySelectorAll('a');
-            // @ts-ignore
             const [title] = product.querySelectorAll('a h2');
-            // @ts-ignore
             const [price] = product.querySelectorAll('a .price');
             // Check how to simplify this ^
-            const formatText = (element) => element && element.innerText.trim();
+            const formatText = (element: any) =>
+              element && element.innerText.trim(); // do poprawki typowanie
 
             return {
               title: formatText(title),
@@ -43,9 +56,12 @@ export class Scraper {
         }
       );
 
+      const logger = fs.createWriteStream('data.txt', { flags: 'w' }); // Maybe it is better to use JSON?
+      logger.write(JSON.stringify(products, null, ' '));
+
       await browser.close();
-      return products;
     } catch (error) {
+      // do zmiany, ale na razie działa
       console.log(error);
       process.exit(1);
     }

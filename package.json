@@ -2,44 +2,87 @@
   "name": "scrappy",
   "version": "1.0.0",
   "description": "Playwright Web Scraping",
-  "main": "index.ts",
-  "scripts": {
-    "scrappy": "node index.ts",
-    "scrappy:5": "for i in `seq 1 5`; do node scraper.ts; done",
-    "prettier": "prettier --write .",
-    "prepare": "husky install",
-    "lint": "eslint ."
+  "author": "ksenecki",
+  "bin": {
+    "scrappy": "./bin/run"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ksenecki/scrappy.git"
-  },
+  "homepage": "https://github.com/ksenecki/scrappy",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "ksenecki/scrappy",
   "keywords": [
     "scraping",
     "playwright",
     "panda"
   ],
-  "author": "ksenecki",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ksenecki/scrappy/issues"
-  },
-  "homepage": "https://github.com/ksenecki/scrappy#readme",
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
   "dependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
-    "eslint": "^8.23.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1",
+    "@oclif/core": "^1.19.1",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.1.4",
     "@playwright/test": "^1.27.1",
     "random-useragent": "^0.5.0"
   },
+  "devDependencies": {
+    "@oclif/test": "^2.2.4",
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.11.68",
+    "@types/random-useragent": "^0.3.1",
+    "chai": "^4",
+    "eslint": "^8.23.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.3",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "mocha": "^9",
+    "oclif": "^3",
+    "prettier": "^2.7.1",
+    "shx": "^0.3.3",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.8.4"
+  },
+  "oclif": {
+    "bin": "scrappy",
+    "dirname": "scrappy",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      }
+    }
+  },
+  "scripts": {
+    "scrappy": "node index.js",
+    "scrappy:5": "for i in `seq 1 5`; do node scraper.js; done",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/ksenecki/scrappy/issues",
+  "types": "dist/index.d.ts",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown --no-stash"
-  },
-  "devDependencies": {
-    "@types/node": "^18.11.4",
-    "@types/random-useragent": "^0.3.1",
-    "typescript": "^4.8.4"
   }
 }

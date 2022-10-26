@@ -1,6 +1,6 @@
 # scrappy
 
-My attempt to scrap pages using Playwright
+My attempt to scrap pages using [Playwright](https://playwright.dev/) and [oclif.io](https://oclif.io/)
 
 ## Project requirements
 
@@ -13,4 +13,11 @@ My attempt to scrap pages using Playwright
 
 ## Install Playwright with npm
 
-1. npm install playwright
+1. `npm install playwright`
+2. `npm install @playwright/test`
+
+## Running Scrappy with oclif.io
+
+- `./bin/dev scrap`
+- use `--help` for help
+- debug with `DEBUG=* ./bin/dev scrap`

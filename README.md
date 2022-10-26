@@ -20,3 +20,4 @@ My attempt to scrap pages using [Playwright](https://playwright.dev/) and [oclif
 
 - `./bin/dev scrap`
 - use `--help` for help
+- debug with `DEBUG=* ./bin/dev scrap`

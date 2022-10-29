@@ -33,7 +33,7 @@
     "@trivago/prettier-plugin-sort-imports": "^3.4.0",
     "@types/chai": "^4",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.68",
+    "@types/node": "^16.18.2",
     "@types/random-useragent": "^0.3.1",
     "chai": "^4",
     "eslint": "^8.23.0",

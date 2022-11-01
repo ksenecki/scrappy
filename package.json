@@ -61,12 +61,13 @@
     "topics": {
       "hello": {
         "description": "Say hello to the world and others"
+      },
+      "scrap": {
+        "description": "Scrap some pages"
       }
     }
   },
   "scripts": {
-    "scrappy": "node index.js",
-    "scrappy:5": "for i in `seq 1 5`; do node scraper.js; done",
     "prettier": "prettier --write .",
     "prepare": "husky install",
     "build": "shx rm -rf dist && tsc -b",

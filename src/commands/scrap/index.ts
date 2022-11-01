@@ -1,4 +1,3 @@
-// import * as fs from 'fs';
 import { SklepTest } from '../../scrapers/SklepTest';
 import { Command, Flags } from '@oclif/core';
 

@@ -1,4 +1,6 @@
-import { SklepTest } from '../../scrapers/SklepTest';
+// import SklepTest from '@scrapers/SklepTest'; todo: Project sees location but ./bin/dev scrap does not see it
+import * as fs from 'fs';
+import SklepTest from '../../scrapers/SklepTest';
 import { Command, Flags } from '@oclif/core';
 
 export default class Scrap extends Command {
@@ -27,7 +29,10 @@ export default class Scrap extends Command {
       try {
         // should improve error handling
         let sklep = new SklepTest();
-        sklep.sklepTest();
+        const products = await sklep.sklepTest();
+
+        const logger = fs.createWriteStream('data.json', { flags: 'w' });
+        logger.write(JSON.stringify(products, null, ' '));
       } catch (error) {
         // should improve error handling
         console.log(error);

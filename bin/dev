@@ -15,3 +15,12 @@ oclif.settings.debug = true;
 
 // Start the CLI
 oclif.run().then(oclif.flush).catch(oclif.Errors.handle);
+
+// Add path aliases
+const tsConfig = require('../tsconfig.json');
+const tsConfigPaths = require('tsconfig-paths');
+
+tsConfigPaths.register({
+  baseUrl: './',
+  paths: tsConfig.compilerOptions.paths,
+});

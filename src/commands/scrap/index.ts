@@ -1,7 +1,6 @@
-// import SklepTest from '@scrapers/SklepTest'; todo: Project sees location but ./bin/dev scrap does not see it
 import * as fs from 'fs';
-import SklepTest from '../../scrapers/SklepTest';
 import { Command, Flags } from '@oclif/core';
+import SklepTest from '@scrapers/SklepTest';
 
 export default class Scrap extends Command {
   static description = 'run scrapers';

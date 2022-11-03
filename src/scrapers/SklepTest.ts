@@ -1,11 +1,10 @@
-import * as fs from 'fs';
 import * as random_useragent from 'random-useragent';
 import { chromium } from '@playwright/test';
 
 const BASE_URL = 'http://skleptest.pl/';
 
-export class SklepTest {
-  async sklepTest(): Promise<void> {
+class SklepTest {
+  async sklepTest() {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -22,10 +21,13 @@ export class SklepTest {
     const products = await page.$$eval('ul.products li', (productArticles) => {
       return productArticles.map((product) => {
         const title = product.querySelectorAll('a h2')[0].textContent;
-        const price = product.querySelectorAll('a .price')[0].textContent;
+        const regExp = new RegExp('\u00A0', 'g');
+        const price = product
+          .querySelectorAll('a .price')[0]
+          .textContent?.replace(regExp, ' ');
         const url = product.querySelectorAll('a')[0].href;
 
-        const formatText = (element: string | null) => element?.trim();
+        const formatText = (element?: string | null) => element?.trim();
 
         return {
           title: formatText(title),
@@ -34,8 +36,10 @@ export class SklepTest {
         };
       });
     });
-    const logger = fs.createWriteStream('data.json', { flags: 'w' });
-    logger.write(JSON.stringify(products, null, ' '));
+
     await browser.close();
+    return products;
   }
 }
+
+export default SklepTest;

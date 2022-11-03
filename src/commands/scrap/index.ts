@@ -1,5 +1,6 @@
-import { SklepTest } from '../../scrapers/SklepTest';
+import * as fs from 'fs';
 import { Command, Flags } from '@oclif/core';
+import SklepTest from '@scrapers/SklepTest';
 
 export default class Scrap extends Command {
   static description = 'run scrapers';
@@ -27,7 +28,10 @@ export default class Scrap extends Command {
       try {
         // should improve error handling
         let sklep = new SklepTest();
-        sklep.sklepTest();
+        const products = await sklep.sklepTest();
+
+        const logger = fs.createWriteStream('data.json', { flags: 'w' });
+        logger.write(JSON.stringify(products, null, ' '));
       } catch (error) {
         // should improve error handling
         console.log(error);

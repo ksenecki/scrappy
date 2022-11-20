@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { Command, Flags } from '@oclif/core';
-import ShopDragonEye from '@scrapers/DragonEye';
+import SklepTest from '@scrapers/SklepTest';
 
 export default class Scrap extends Command {
   static description = 'run scrapers';
@@ -27,11 +27,36 @@ export default class Scrap extends Command {
       this.log(`>>> Scrappy runs ${i + 1} time <<<`);
       try {
         // should improve error handling
-        let sklep = new ShopDragonEye();
-        const products = await sklep.dragonEye();
+        let sklep = new SklepTest();
 
-        const logger = fs.createWriteStream('data.json', { flags: 'w' });
-        logger.write(JSON.stringify(products, null, ' '));
+        const products = await sklep.sklepTest();
+
+        const now = new Date();
+        const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
+
+        fs.access(
+          `${currentDate}_data.json`,
+          fs.constants.F_OK | fs.constants.W_OK,
+          (err) => {
+            if (err) {
+              const logger = fs.createWriteStream(`${currentDate}_data.json`, {
+                flags: 'w',
+              });
+              logger.write(JSON.stringify(products, null, ' '));
+              console.log(`${currentDate}_data.json file created.`);
+            } else {
+              let data = fs.readFileSync(`${currentDate}_data.json`, 'utf8');
+              let currentObject = JSON.parse(data);
+              currentObject.push(products);
+              let newData = JSON.stringify(currentObject, null, ' ');
+              fs.writeFile(`${currentDate}_data.json`, newData, (err) => {
+                // Error checking
+                if (err) throw err;
+                console.log(`Newata added to ${currentDate}_data.json`);
+              });
+            }
+          }
+        );
       } catch (error) {
         // should improve error handling
         console.log(error);

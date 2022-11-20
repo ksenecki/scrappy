@@ -1,0 +1,90 @@
+{
+  "name": "scrappy",
+  "version": "1.0.0",
+  "description": "Playwright Web Scraping",
+  "author": "ksenecki",
+  "bin": {
+    "scrappy": "./bin/run"
+  },
+  "homepage": "https://github.com/ksenecki/scrappy",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "repository": "ksenecki/scrappy",
+  "keywords": [
+    "scraping",
+    "playwright",
+    "panda"
+  ],
+  "files": [
+    "/bin",
+    "/dist",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "dependencies": {
+    "@oclif/core": "^1.20.0",
+    "@oclif/plugin-help": "^5",
+    "@oclif/plugin-plugins": "^2.1.6",
+    "@playwright/test": "^1.27.1",
+    "random-useragent": "^0.5.0",
+    "tsconfig-paths": "^4.1.0"
+  },
+  "devDependencies": {
+    "@oclif/test": "^2.2.6",
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "@types/chai": "^4",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.18.2",
+    "@types/random-useragent": "^0.3.1",
+    "chai": "^4",
+    "eslint": "^8.23.0",
+    "eslint-config-oclif": "^4",
+    "eslint-config-oclif-typescript": "^1.0.3",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "mocha": "^9",
+    "oclif": "^3",
+    "prettier": "^2.7.1",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.8.4"
+  },
+  "oclif": {
+    "bin": "scrappy",
+    "dirname": "scrappy",
+    "commands": "./dist/commands",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-plugins"
+    ],
+    "topicSeparator": " ",
+    "topics": {
+      "hello": {
+        "description": "Say hello to the world and others"
+      },
+      "scrap": {
+        "description": "Scrap some pages"
+      }
+    }
+  },
+  "scripts": {
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts --config .eslintrc",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "yarn lint",
+    "prepack": "yarn build && oclif manifest && oclif readme",
+    "test": "mocha --forbid-only \"test/**/*.test.ts\"",
+    "version": "oclif readme && git add README.md"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "bugs": "https://github.com/ksenecki/scrappy/issues",
+  "types": "dist/index.d.ts",
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown --no-stash"
+  }
+}

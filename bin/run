@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+const oclif = require('@oclif/core');
+
+oclif
+  .run()
+  .then(require('@oclif/core/flush'))
+  .catch(require('@oclif/core/handle'));
+
+// Add path aliases
+const tsConfig = require('../tsconfig.json');
+const tsConfigPaths = require('tsconfig-paths');
+
+tsConfigPaths.register({
+  baseUrl: './',
+  paths: tsConfig.compilerOptions.paths,
+});

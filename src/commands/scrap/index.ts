@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { Command, Flags } from '@oclif/core';
-import SklepTest from '@scrapers/SklepTest';
+import ShopDragonEye from '@scrapers/DragonEye';
 
 export default class Scrap extends Command {
   static description = 'run scrapers';
@@ -27,8 +27,8 @@ export default class Scrap extends Command {
       this.log(`>>> Scrappy runs ${i + 1} time <<<`);
       try {
         // should improve error handling
-        let sklep = new SklepTest();
-        const products = await sklep.sklepTest();
+        let sklep = new ShopDragonEye();
+        const products = await sklep.dragonEye();
 
         const logger = fs.createWriteStream('data.json', { flags: 'w' });
         logger.write(JSON.stringify(products, null, ' '));

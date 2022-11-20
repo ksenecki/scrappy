@@ -31,33 +31,45 @@ export default class Scrap extends Command {
 
         //TODO: Improve so this number is not fixed
         const dragonEyeTotalPages = 62;
-        for (let dragonEyePage = 1; dragonEyePage <= dragonEyeTotalPages; dragonEyePage++){
+        for (
+          let dragonEyePage = 1;
+          dragonEyePage <= dragonEyeTotalPages;
+          dragonEyePage++
+        ) {
           const products = await sklep.dragonEye(dragonEyePage);
-        
 
-        const now = new Date();
-        const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
+          const now = new Date();
+          const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
 
-
-        fs.access(`${currentDate}_data.json`, fs.constants.F_OK | fs.constants.W_OK, (err) => {
-          if (err) {
-            const logger = fs.createWriteStream(`${currentDate}_data.json`, { flags: 'w' });
-            logger.write(JSON.stringify(products, null, ' '));
-            console.log(`${currentDate}_data.json file created with ${dragonEyePage} Dragoneye page data`);
-            } else {
-              let data = fs.readFileSync(`${currentDate}_data.json`, "utf8");
-              let currentObject = JSON.parse(data);
-              currentObject.push(products);
-              let newData = JSON.stringify(currentObject, null, ' ');
-              fs.writeFile(`${currentDate}_data.json`, newData, (err) => {
-                // Error checking
-                if (err) throw err;
-                console.log(`${dragonEyePage} DragonEye page data added to ${currentDate}_data.json`);
-              });
-          }
-        });
-      };
-        
+          fs.access(
+            `${currentDate}_data.json`,
+            fs.constants.F_OK | fs.constants.W_OK,
+            (err) => {
+              if (err) {
+                const logger = fs.createWriteStream(
+                  `${currentDate}_data.json`,
+                  { flags: 'w' }
+                );
+                logger.write(JSON.stringify(products, null, ' '));
+                console.log(
+                  `${currentDate}_data.json file created with ${dragonEyePage} Dragoneye page data`
+                );
+              } else {
+                let data = fs.readFileSync(`${currentDate}_data.json`, 'utf8');
+                let currentObject = JSON.parse(data);
+                currentObject.push(products);
+                let newData = JSON.stringify(currentObject, null, ' ');
+                fs.writeFile(`${currentDate}_data.json`, newData, (err) => {
+                  // Error checking
+                  if (err) throw err;
+                  console.log(
+                    `${dragonEyePage} DragonEye page data added to ${currentDate}_data.json`
+                  );
+                });
+              }
+            }
+          );
+        }
       } catch (error) {
         // should improve error handling
         console.log(error);

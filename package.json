@@ -36,6 +36,8 @@
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.18.2",
     "@types/random-useragent": "^0.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "chai": "^4",
     "eslint": "^8.23.0",
     "eslint-config-oclif": "^4",

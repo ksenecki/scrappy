@@ -3,8 +3,8 @@ import { chromium } from '@playwright/test';
 
 const BASE_URL = 'https://dragoneye.pl/';
 
-class ShopDragonEye {
-  async dragonEye(pageNumber: number) {
+class ShopDragonEyeProducts {
+  async dragonEyeProducts(pageNumber: number) {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -53,15 +53,9 @@ class ShopDragonEye {
       }
     );
 
-    //TODO: get max page number data so it is not fixed in index.ts
-
-    // const pageUrl = await page.locator('.flbox .flRight a').textContent;
-    // const allPages = await page.locator('.flbox .flRight u').textContent;
-    // const formatText = (element?: string | null) => element?.trim();
-
     await browser.close();
     return products;
   }
 }
 
-export default ShopDragonEye;
+export default ShopDragonEyeProducts;

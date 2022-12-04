@@ -29,8 +29,7 @@ export default class Scrap extends Command {
         // should improve error handling
         let sklep = new ShopDragonus();
 
-        // const dragonusLastPage = await sklep.dragonusPages();
-        const dragonusLastPage = 1;
+        const dragonusLastPage = await sklep.dragonusPages();
         for (
           let dragonusPage = 1;
           dragonusPage <= Number(dragonusLastPage);
@@ -41,7 +40,6 @@ export default class Scrap extends Command {
           const now = new Date();
           const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
           let saveShopData = new saveData();
-          console.log(products);
           saveShopData.saveJSONFile(
             'DragonusPage',
             dragonusPage,

@@ -1,5 +1,5 @@
 import { Command, Flags } from '@oclif/core';
-import ShopDragonEye from '@scrapers/DragonEye';
+import ShopDragonus from '@scrapers/Dragonus';
 import saveData from '@scrapers/saveData';
 
 export default class Scrap extends Command {
@@ -27,23 +27,22 @@ export default class Scrap extends Command {
       this.log(`>>> Scrappy runs ${i + 1} time <<<`);
       try {
         // should improve error handling
-        let sklep = new ShopDragonEye();
+        let sklep = new ShopDragonus();
 
-        const dragonEyeLastPage = await sklep.dragonEyePages();
+        const dragonusLastPage = await sklep.dragonusPages();
         for (
-          let dragonEyePage = 1;
-          dragonEyePage <= Number(dragonEyeLastPage);
-          dragonEyePage++
+          let dragonusPage = 1;
+          dragonusPage <= Number(dragonusLastPage);
+          dragonusPage++
         ) {
-          const products = await sklep.dragonEyeProducts(dragonEyePage);
+          const products = await sklep.dragonusProducts(dragonusPage);
 
           const now = new Date();
           const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
-
           let saveShopData = new saveData();
           saveShopData.saveJSONFile(
-            'DragonEye',
-            dragonEyePage,
+            'DragonusPage',
+            dragonusPage,
             products,
             currentDate
           );

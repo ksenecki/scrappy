@@ -1,10 +1,10 @@
 import * as random_useragent from 'random-useragent';
 import { chromium } from '@playwright/test';
 
-const BASE_URL = 'https://mepel.pl/';
+const BASE_URL = 'https://dragonus.pl/';
 
-class ShopMepel {
-  async mepelProducts(pageNumber: number) {
+class ShopDragonus {
+  async dragonusProducts(pageNumber: number) {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -14,32 +14,32 @@ class ShopMepel {
     });
     const page = await context.newPage();
 
-    //https://mepel.pl/gry-planszowe/1
+    //https://dragonus.pl/pl/c/GRY-PLANSZOWE/173/1
 
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `gry-planszowe/${pageNumber}`);
+    await page.goto(BASE_URL + `pl/c/GRY-PLANSZOWE/173/${pageNumber}`);
 
     const products = await page.$$eval(
-      '.product .product-inner-wrap',
+      '.products tbody .product',
       (productArticles) => {
         return productArticles.map((product) => {
-          const title = product.querySelectorAll(
-            '.product-title .productname'
-          )[0].textContent;
+          const title = product.querySelectorAll('.productname')[0].textContent;
           const regExp = new RegExp('\u00A0', 'g');
           const price = product
-            .querySelectorAll('.price')[0]
+            .querySelectorAll('.price em')[0]
             .textContent?.replace(regExp, ' ');
 
-          const shipmentTime = 'n/a';
-          const availability =
-            product.querySelectorAll('.availability')[0].textContent;
+          const shipmentAvailable = product.querySelectorAll(
+            '.availanddeliv .delivery'
+          )[1]?.textContent;
+          const shipmentTime = shipmentAvailable ? shipmentAvailable : 'n/a';
+          const availability = product.querySelectorAll(
+            '.availanddeliv .availability'
+          )[1].textContent;
 
-          const image = product.querySelectorAll(
-            '.product-photo .prodimage'
-          )[0] as HTMLAnchorElement;
+          const image = product.querySelectorAll('a')[0] as HTMLAnchorElement;
           const url = image.href;
 
           const formatText = (element?: string | null) => element?.trim();
@@ -47,7 +47,7 @@ class ShopMepel {
           return {
             title: formatText(title),
             price: formatText(price),
-            shipment: formatText(shipmentTime),
+            shipment: shipmentTime,
             availability: formatText(availability),
             url: url,
           };
@@ -59,7 +59,7 @@ class ShopMepel {
     return products;
   }
 
-  async mepelPages() {
+  async dragonusPages() {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -72,13 +72,13 @@ class ShopMepel {
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `gry-planszowe/1`);
+    await page.goto(BASE_URL + `pl/c/GRY-PLANSZOWE/173/1`);
 
-    const lastPage = await page.locator('.paginator li a').last().innerText();
+    const lastPage = await page.locator('.paginator li a').nth(-2).innerText();
 
     await browser.close();
     return lastPage;
   }
 }
 
-export default ShopMepel;
+export default ShopDragonus;

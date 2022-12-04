@@ -3,11 +3,11 @@ import ShopMepel from '@scrapers/Mepel';
 import saveData from '@scrapers/saveData';
 
 export default class Scrap extends Command {
-  static description = 'run scrapers';
+  static description = 'run scraper';
 
   static examples = [
     `$ Scraping shop N time
-  Scraping playground (./src/commands/scrap/index.ts)
+  Scraping playground (./src/commands/scraperName/index.ts)
   `,
   ];
 

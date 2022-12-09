@@ -21,3 +21,11 @@ Scraping Boardgamepage Shops using [Playwright](https://playwright.dev/) and [oc
 - `./bin/dev scrap`
 - use `--help` for help
 - debug with `DEBUG=* ./bin/dev scrap`
+
+## Boardgame Shops
+
+- `npm run scrappy` to run all scrapers sequentionally
+- `npm run scrappy:parallel` to run all scrapers parallelly
+- `npm run dragoneye` to tun single Dragoneye scraper
+- `npm run dragonus` to tun single Dragonus scraper
+- `npm run mepel` to tun single Mepel scraper

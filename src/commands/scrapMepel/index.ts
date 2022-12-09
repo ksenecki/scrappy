@@ -24,7 +24,7 @@ export default class Scrap extends Command {
     let iter = 1;
     if (args.iterations) iter = args.iterations;
     for (let i = 0; i < iter; i++) {
-      this.log(`>>> Scrappy runs ${i + 1} time <<<`);
+      this.log(`>>> Scraping Mepel ${i + 1} time <<<`);
       try {
         // should improve error handling
         let sklep = new ShopMepel();

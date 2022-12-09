@@ -1,6 +1,6 @@
-# scrappy
+# Boardgame Scrappy
 
-My attempt to scrap pages using [Playwright](https://playwright.dev/) and [oclif.io](https://oclif.io/)
+Scraping Boardgamepage Shops using [Playwright](https://playwright.dev/) and [oclif.io](https://oclif.io/)
 
 ## Project requirements
 

@@ -1,6 +1,6 @@
-# Boardgame Scrappy
+# Scrappy
 
-Scraping Boardgamepage Shops using [Playwright](https://playwright.dev/) and [oclif.io](https://oclif.io/)
+Scraping Boardgame Shops using [Playwright](https://playwright.dev/) and [oclif.io](https://oclif.io/)
 
 ## Project requirements
 

@@ -44,7 +44,12 @@ class ShopDragonus {
 
           const formatText = (element?: string | null) => element?.trim();
 
+          const now = new Date();
+          const currentTime = `${now.getHours()}:${now.getMinutes()}:${now.getUTCSeconds()}-${now.getDate()}-${now.getMonth()}-${now.getFullYear()}`;
+
           return {
+            date: currentTime,
+            shop: 'Dragonus',
             title: formatText(title),
             price: formatText(price),
             shipment: shipmentTime,

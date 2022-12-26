@@ -7,13 +7,18 @@ class saveData {
     products: any,
     currentDate: string
   ) {
+    const dir = `./results/${currentDate}`;
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+
     fs.access(
-      `${shopName}_${currentDate}_data.json`,
+      `./results/${currentDate}/${shopName}_${currentDate}_data.json`,
       fs.constants.F_OK | fs.constants.W_OK,
       (err) => {
         if (err) {
           const logger = fs.createWriteStream(
-            `${shopName}_${currentDate}_data.json`,
+            `./results/${currentDate}/${shopName}_${currentDate}_data.json`,
             {
               flags: 'w',
             }
@@ -24,14 +29,14 @@ class saveData {
           );
         } else {
           let data = fs.readFileSync(
-            `${shopName}_${currentDate}_data.json`,
+            `./results/${currentDate}/${shopName}_${currentDate}_data.json`,
             'utf8'
           );
           let currentObject = JSON.parse(data);
           currentObject.push(products);
           let newData = JSON.stringify(currentObject, null, ' ');
           fs.writeFile(
-            `${shopName}_${currentDate}_data.json`,
+            `./results/${currentDate}/${shopName}_${currentDate}_data.json`,
             newData,
             (err) => {
               // Error checking

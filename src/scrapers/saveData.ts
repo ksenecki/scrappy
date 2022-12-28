@@ -33,7 +33,7 @@ class saveData {
             'utf8'
           );
           let currentObject = JSON.parse(data);
-          currentObject.push(products);
+          currentObject.push(...products);
           let newData = JSON.stringify(currentObject, null, ' ');
           fs.writeFile(
             `./results/${currentDate}/${shopName}_${currentDate}_data.json`,

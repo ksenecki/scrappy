@@ -1,8 +1,4 @@
 {
   "singleQuote": true,
-  "semi": true,
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "importOrderGroupNamespaceSpecifiers": true,
-  "importOrderCaseInsensitive": true
+  "semi": true
 }

@@ -1,4 +1,4 @@
-# Boardgame Scrappy
+# Scrappy
 
 Scraping Boardgamepage Shops using [Playwright](https://playwright.dev/) and [oclif.io](https://oclif.io/)
 Data can be filtered using [scrappy-web](https://github.com/ksenecki/scrappy-web)

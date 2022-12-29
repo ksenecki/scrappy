@@ -1,10 +1,10 @@
 import { chromium } from '@playwright/test';
 import * as random_useragent from 'random-useragent';
 
-const BASE_URL = 'https://dragoneye.pl/';
+const BASE_URL = 'https://planszostrefa.pl/';
 
-class ShopDragonEye {
-  async dragonEyeProducts(pageNumber: number) {
+class ShopPlanszostrefa {
+  async planszostrefaProducts(pageNumber: number) {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -14,37 +14,42 @@ class ShopDragonEye {
     });
     const page = await context.newPage();
 
-    // https://dragoneye.pl/gry-planszowe-c-15.html?page=1&sort=1a
+    // https://planszostrefa.pl/pl/c/GRY-PLANSZOWE/1/1
 
-    await page.setDefaultTimeout(30000);
+    await page.setDefaultTimeout(45000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(
-      BASE_URL + `gry-planszowe-c-15.html?page=${pageNumber}&sort=1a`
-    );
+    await page.goto(BASE_URL + `pl/c/GRY-PLANSZOWE/1/${pageNumber}`);
 
     const products = await page.$$eval(
-      '.listing .boxProdSmall',
+      '.product .product-inner-wrap',
       (productArticles) => {
         return productArticles.map((product) => {
-          const title =
-            product.querySelectorAll('.center .nazwa')[0].textContent;
+          const image = product.querySelectorAll(
+            '.prodimage'
+          )[0] as HTMLAnchorElement;
+
+          const title = product.querySelectorAll('.productname')[0].textContent;
           const regExp = new RegExp('\u00A0', 'g');
           const regExpComma = new RegExp(',', 'g');
           const regExpPLN = new RegExp(' zł', 'g');
           const allPrices = product
-            .querySelectorAll('.center .cena .cenaBrutto')[0]
+            .querySelectorAll('.price')[0]
             .textContent?.replace(regExp, ' ')
             .replace(regExpComma, '.')
             .replace(regExpPLN, '');
           const prices = allPrices?.match(/\d+\.\d+/);
           const price = prices && prices[prices.length - 1];
 
-          const infoBox = product.querySelectorAll('.center p');
-          const shipmentTime = infoBox[infoBox.length - 2].textContent;
-          const availability = infoBox[infoBox.length - 1].textContent;
+          let shipmentTime =
+            product.querySelectorAll('.delivery')[0]?.textContent;
+          if (!shipmentTime) {
+            shipmentTime = 'n/a';
+          }
+          const availability =
+            product.querySelectorAll('.availability')[0].textContent;
 
-          const url = product.querySelectorAll('a')[0].href;
+          const url = image.href;
 
           const formatText = (element?: string | null) => element?.trim();
 
@@ -53,7 +58,7 @@ class ShopDragonEye {
 
           return {
             date: currentTime,
-            shop: 'DragonEye',
+            shop: 'Planszostrefa',
             title: formatText(title),
             price: formatText(price),
             shipment: formatText(shipmentTime),
@@ -68,7 +73,7 @@ class ShopDragonEye {
     return products;
   }
 
-  async dragonEyePages() {
+  async planszostrefaPages() {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -78,18 +83,21 @@ class ShopDragonEye {
     });
     const page = await context.newPage();
 
-    // https://dragoneye.pl/gry-planszowe-c-15.html?page=1&sort=1a
+    // https://planszostrefa.pl/pl/c/GRY-PLANSZOWE/1
 
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `gry-planszowe-c-15.html?page=1&sort=1a`);
+    await page.goto(BASE_URL + `pl/c/GRY-PLANSZOWE/1`);
 
-    const lastPage = await page.locator('.pageResults u').nth(-2).innerText();
+    const lastPage = await page
+      .locator('.innerbox .paginator li')
+      .nth(-2)
+      .innerText();
 
     await browser.close();
     return lastPage;
   }
 }
 
-export default ShopDragonEye;
+export default ShopPlanszostrefa;

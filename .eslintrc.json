@@ -5,9 +5,8 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "oclif",
-    "oclif-typescript",
     "prettier"
   ],
   "overrides": [],
@@ -16,7 +15,7 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "semi": [2, "always"]
   }

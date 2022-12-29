@@ -1,5 +1,5 @@
-import * as random_useragent from 'random-useragent';
 import { chromium } from '@playwright/test';
+import * as random_useragent from 'random-useragent';
 
 const BASE_URL = 'https://dragonus.pl/';
 
@@ -27,9 +27,15 @@ class ShopDragonus {
         return productArticles.map((product) => {
           const title = product.querySelectorAll('.productname')[0].textContent;
           const regExp = new RegExp('\u00A0', 'g');
-          const price = product
+          const regExpComma = new RegExp(',', 'g');
+          const regExpPLN = new RegExp(' zł', 'g');
+          const allPrices = product
             .querySelectorAll('.price em')[0]
-            .textContent?.replace(regExp, ' ');
+            .textContent?.replace(regExp, ' ')
+            .replace(regExpComma, '.')
+            .replace(regExpPLN, '');
+          const prices = allPrices?.match(/\d+\.\d+/);
+          const price = prices && prices[prices.length - 1];
 
           const shipmentAvailable = product.querySelectorAll(
             '.availanddeliv .delivery'

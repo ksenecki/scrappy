@@ -15,11 +15,15 @@ class ShopPlanszostrefa {
     const page = await context.newPage();
 
     // https://planszostrefa.pl/pl/c/GRY-PLANSZOWE/1/1
+    // availability: https://planszostrefa.pl/pl/c/GRY-PLANSZOWE/1/1/default/1/f_availability_22/1/f_availability_2/1/f_availability_20/1/f_availability_21/1
 
     await page.setDefaultTimeout(45000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `pl/c/GRY-PLANSZOWE/1/${pageNumber}`);
+    await page.goto(
+      BASE_URL +
+        `pl/c/GRY-PLANSZOWE/1/${pageNumber}/default/1/f_availability_22/1/f_availability_2/1/f_availability_20/1/f_availability_21/1`
+    );
 
     const products = await page.$$eval(
       '.product .product-inner-wrap',
@@ -84,11 +88,15 @@ class ShopPlanszostrefa {
     const page = await context.newPage();
 
     // https://planszostrefa.pl/pl/c/GRY-PLANSZOWE/1
+    // availability: https://planszostrefa.pl/pl/c/GRY-PLANSZOWE/1/1/default/1/f_availability_22/1/f_availability_2/1/f_availability_20/1/f_availability_21/1
 
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `pl/c/GRY-PLANSZOWE/1`);
+    await page.goto(
+      BASE_URL +
+        `pl/c/GRY-PLANSZOWE/1/1/default/1/f_availability_22/1/f_availability_2/1/f_availability_20/1/f_availability_21/1`
+    );
 
     const lastPage = await page
       .locator('.innerbox .paginator li')

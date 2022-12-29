@@ -14,7 +14,7 @@ class ShopDragonus {
     });
     const page = await context.newPage();
 
-    //https://dragonus.pl/pl/c/GRY-PLANSZOWE/173/1
+    // https://dragonus.pl/pl/c/GRY-PLANSZOWE/173/1
 
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });

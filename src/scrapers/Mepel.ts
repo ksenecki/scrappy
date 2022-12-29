@@ -14,12 +14,15 @@ class ShopMepel {
     });
     const page = await context.newPage();
 
-    //https://mepel.pl/gry-planszowe/1
+    // https://mepel.pl/gry-planszowe/1
+    // available filter: https://mepel.pl/gry-planszowe/1/default/1/f_availability_2/1
 
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `gry-planszowe/${pageNumber}`);
+    await page.goto(
+      BASE_URL + `gry-planszowe/${pageNumber}/default/1/f_availability_2/1`
+    );
 
     const products = await page.$$eval(
       '.product .product-inner-wrap',
@@ -83,7 +86,7 @@ class ShopMepel {
     await page.setDefaultTimeout(30000);
     await page.setViewportSize({ width: 800, height: 600 });
 
-    await page.goto(BASE_URL + `gry-planszowe/1`);
+    await page.goto(BASE_URL + `gry-planszowe/1/default/1/f_availability_2/1`);
 
     const lastPage = await page.locator('.paginator li a').last().innerText();
 

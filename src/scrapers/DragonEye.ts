@@ -1,5 +1,5 @@
-import * as random_useragent from 'random-useragent';
 import { chromium } from '@playwright/test';
+import * as random_useragent from 'random-useragent';
 
 const BASE_URL = 'https://dragoneye.pl/';
 
@@ -30,9 +30,15 @@ class ShopDragonEye {
           const title =
             product.querySelectorAll('.center .nazwa')[0].textContent;
           const regExp = new RegExp('\u00A0', 'g');
-          const price = product
+          const regExpComma = new RegExp(',', 'g');
+          const regExpPLN = new RegExp(' zł', 'g');
+          const allPrices = product
             .querySelectorAll('.center .cena .cenaBrutto')[0]
-            .textContent?.replace(regExp, ' ');
+            .textContent?.replace(regExp, ' ')
+            .replace(regExpComma, '.')
+            .replace(regExpPLN, '');
+          const prices = allPrices?.match(/\d+\.\d+/);
+          const price = prices && prices[prices.length - 1];
 
           const infoBox = product.querySelectorAll('.center p');
           const shipmentTime = infoBox[infoBox.length - 2].textContent;

@@ -28,5 +28,5 @@ Data can be filtered using [scrappy-web](https://github.com/ksenecki/scrappy-web
 - `npm run scrappy` to run all scrapers sequentionally
 - `npm run scrappy:parallel` to run all scrapers parallelly
 - `npm run <shopname>` to run single shop scraper, e.g. `npm run dragoneye`
-- available shops: `dragoneye`, `dragonus`, `mepel`, `planszostrefa`
+- available shops: `dragoneye`, `dragonus`, `mepel`, `planszostrefa`, `szopgracz`
 - scraping only available games if possible

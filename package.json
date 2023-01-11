@@ -80,13 +80,13 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
-    "scrappy:parallel": "./bin/dev scrapDragonEye & ./bin/dev scrapDragonus & ./bin/dev scrapMepel & ./bin/dev scrapPlanszostrefa & ./bin/dev scrapSzopgracz",
-    "scrappy": "./bin/dev scrap",
-    "dragoneye": "./bin/dev scrapDragonEye",
-    "dragonus": "./bin/dev scrapDragonus",
-    "mepel": "./bin/dev scrapMepel",
-    "planszostrefa": "./bin/dev scrapPlanszostrefa",
-    "szopgracz": "./bin/dev scrapSzopgracz"
+    "scrappy:sequential": "./bin/dev scrapDragonEye --save json && ./bin/dev scrapDragonus --save json && ./bin/dev scrapMepel --save json && ./bin/dev scrapPlanszostrefa --save json && ./bin/dev scrapShopgracz --save json",
+    "scrappy:parallel": "./bin/dev scrapDragonEye --save json & ./bin/dev scrapDragonus --save json & ./bin/dev scrapMepel --save json & ./bin/dev scrapPlanszostrefa --save json & ./bin/dev scrapShopgracz --save json",
+    "dragoneye:json": "./bin/dev scrapDragonEye --save json",
+    "dragonus:json": "./bin/dev scrapDragonus --save json",
+    "mepel:json": "./bin/dev scrapMepel --save json",
+    "planszostrefa:json": "./bin/dev scrapPlanszostrefa --save json",
+    "shopgracz:json": "./bin/dev scrapShopgracz --save json"
   },
   "engines": {
     "node": ">=12.0.0"

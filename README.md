@@ -19,14 +19,15 @@ Data can be filtered using [scrappy-web](https://github.com/ksenecki/scrappy-web
 
 ## Running Scrappy with oclif.io
 
-- `./bin/dev scrap`
+- `./bin/dev <command> --save <flag>` to run with a flag to save
+- `save`: `json`, console.log() as default
 - use `--help` for help
-- debug with `DEBUG=* ./bin/dev scrap`
+- debug with `DEBUG=* ./bin/dev command`
 
 ## Boardgame Shops
 
-- `npm run scrappy` to run all scrapers sequentionally
+- `npm run scrappy` to run an example
 - `npm run scrappy:parallel` to run all scrapers parallelly
-- `npm run <shopname>` to run single shop scraper, e.g. `npm run dragoneye`
-- available shops: `dragoneye`, `dragonus`, `mepel`, `planszostrefa`, `szopgracz`
+- `npm run <shopname>:json` to run single shop scraper, e.g. `npm run dragoneye`
+- available shops: `dragoneye`, `dragonus`, `mepel`, `planszostrefa`, `shopgracz`
 - scraping only available games if possible

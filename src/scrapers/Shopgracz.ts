@@ -3,8 +3,8 @@ import * as random_useragent from 'random-useragent';
 
 const BASE_URL = 'https://shopgracz.pl/';
 
-class ShopSzopgracz {
-  async szopgraczProducts(pageNumber: number) {
+class ShopShopgracz {
+  async shopgraczProducts(pageNumber: number) {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -81,7 +81,7 @@ class ShopSzopgracz {
     return products;
   }
 
-  async szopgraczPages() {
+  async shopgraczPages() {
     const agent = random_useragent.getRandom();
 
     const browser = await chromium.launch({ headless: true });
@@ -106,4 +106,4 @@ class ShopSzopgracz {
   }
 }
 
-export default ShopSzopgracz;
+export default ShopShopgracz;

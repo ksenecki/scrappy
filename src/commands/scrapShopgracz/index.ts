@@ -1,5 +1,5 @@
 import { Command, Flags } from '@oclif/core';
-import ShopSzopgracz from '@scrapers/Szopgracz';
+import ShopShopgracz from '@scrapers/Shopgracz';
 import saveData from '@scrapers/saveData';
 
 export default class Scrap extends Command {
@@ -19,35 +19,48 @@ export default class Scrap extends Command {
     },
   ];
 
+  static flags = {
+    save: Flags.string({
+      string: 's',
+      description: 'Way to save the data',
+      required: false,
+    }),
+  };
+
   async run(): Promise<void> {
     const { args, flags } = await this.parse(Scrap);
     let iter = 1;
     if (args.iterations) iter = args.iterations;
     for (let i = 0; i < iter; i++) {
-      this.log(`>>> Scraping Szopgracz ${i + 1} time <<<`);
+      this.log(`>>> Scraping Shopgracz ${i + 1} time <<<`);
       try {
         // should improve error handling
-        let sklep = new ShopSzopgracz();
+        let sklep = new ShopShopgracz();
 
-        const szopgraczLastPage = await sklep.szopgraczPages();
+        const shopgraczLastPage = await sklep.shopgraczPages();
 
         for (
-          let szopgraczPage = 1;
-          szopgraczPage <= Number(szopgraczLastPage);
-          szopgraczPage++
+          let shopgraczPage = 1;
+          shopgraczPage <= Number(shopgraczLastPage);
+          shopgraczPage++
         ) {
-          const products = await sklep.szopgraczProducts(szopgraczPage);
+          const products = await sklep.shopgraczProducts(shopgraczPage);
 
           const now = new Date();
           const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
 
-          let saveShopData = new saveData();
-          saveShopData.saveJSONFile(
-            'Szopgracz',
-            szopgraczPage,
-            products,
-            currentDate
-          );
+          switch (flags.save) {
+            case 'json':
+              let saveShopData = new saveData();
+              saveShopData.saveJSONFile(
+                'Shopgracz',
+                shopgraczPage,
+                products,
+                currentDate
+              );
+            default:
+              console.log(products);
+          }
         }
       } catch (error) {
         // should improve error handling

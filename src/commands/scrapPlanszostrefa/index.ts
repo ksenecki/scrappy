@@ -19,6 +19,14 @@ export default class Scrap extends Command {
     },
   ];
 
+  static flags = {
+    save: Flags.string({
+      string: 's',
+      description: 'Way to save the data',
+      required: false,
+    }),
+  };
+
   async run(): Promise<void> {
     const { args, flags } = await this.parse(Scrap);
     let iter = 1;
@@ -40,13 +48,18 @@ export default class Scrap extends Command {
           const now = new Date();
           const currentDate = `${now.getDate()}_${now.getMonth()}_${now.getFullYear()}`;
 
-          let saveShopData = new saveData();
-          saveShopData.saveJSONFile(
-            'Planszostrefa',
-            planszostrefaPage,
-            products,
-            currentDate
-          );
+          switch (flags.save) {
+            case 'json':
+              let saveShopData = new saveData();
+              saveShopData.saveJSONFile(
+                'Planszostrefa',
+                planszostrefaPage,
+                products,
+                currentDate
+              );
+            default:
+              console.log(products);
+          }
         }
       } catch (error) {
         // should improve error handling
